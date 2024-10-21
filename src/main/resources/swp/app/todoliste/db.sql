@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, task TEXT, due_date TEXT);
+CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, task TEXT, due_date Date);
 
 
 INSERT INTO tasks (task, due_date) VALUES
