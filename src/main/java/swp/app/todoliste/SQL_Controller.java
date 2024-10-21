@@ -46,7 +46,7 @@ public class SQL_Controller {
 
     }
 
-    public static void selectEntry() {
+    public static Entry[] selectEntry() {
 
     }
 }
