@@ -58,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>swp.app.todoliste/swp.app.todoliste.HelloApplication</mainClass>
+              <mainClass>swp.app.todoliste/swp.app.todoliste.ApplicationMain</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
