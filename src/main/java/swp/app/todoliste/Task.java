@@ -1,14 +1,15 @@
 package swp.app.todoliste;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Task {
     private int id;
-    private String title;
+    private String task;
     private LocalDate changeDate;
 
-    public Task(String title, LocalDate changeDate) {
-        this.title = title;
+    public Task(String task, LocalDate changeDate) {
+        this.task = task;
         this.changeDate = changeDate;
     }
 
@@ -20,12 +21,12 @@ public class Task {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTask() {
+        return task;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTask(String task) {
+        this.task = task;
     }
 
     public LocalDate getChangeDate() {

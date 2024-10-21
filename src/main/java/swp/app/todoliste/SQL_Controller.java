@@ -1,6 +1,7 @@
 package swp.app.todoliste;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class SQL_Controller {
 
@@ -29,12 +30,15 @@ public class SQL_Controller {
         }
     }
 
-    public static void insertTask() {
+    public static void insertTask(Task task) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customers (first-name,second_name,email) values ( ?, ?, ?)");
-            preparedStatement.setString(1,first_name);
-            preparedStatement.setString(2,second_name);
-            preparedStatement.setString(3,email);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customers (id,task,due_date) values ( ?, ?, ?)");
+            preparedStatement.setInt(1,task.getId());
+            preparedStatement.setString(2,task.getTask());
+
+            LocalDate localDate = task.getChangeDate();
+            Date insetedDate = Date.valueOf(localDate);
+            preparedStatement.setDate(3,insetedDate);
             preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {
             System.out.println("There was an error in the SQL syntax");
@@ -53,5 +57,6 @@ public class SQL_Controller {
         } catch (SQLException sqlException) {
 
         }
+        return null;
     }
 }
