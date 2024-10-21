@@ -1,20 +1,21 @@
 package swp.app.todoliste;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class SQL_Controller {
 
     public static Connection connection = null;
+    private static Statement statement = null;
+    private static ResultSet resultSet = null;
     public static void initConnection(String url) {
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url);
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -46,7 +47,11 @@ public class SQL_Controller {
 
     }
 
-    public static Entry[] selectEntry() {
+    public static Task[] selectEntry() {
+        try {
+            resultSet = statement.executeQuery("SELECT * FROM tasks");
+        } catch (SQLException sqlException) {
 
+        }
     }
 }
