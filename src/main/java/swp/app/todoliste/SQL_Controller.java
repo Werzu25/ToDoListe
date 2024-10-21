@@ -7,6 +7,7 @@ import java.sql.SQLException;
 public class SQL_Controller {
 
     public static Connection connection = null;
+    public static Database db = null;
     public static void initConnection(String url) {
         try {
             connection = DriverManager.getConnection(url);
