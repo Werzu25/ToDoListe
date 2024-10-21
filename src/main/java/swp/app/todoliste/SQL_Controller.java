@@ -29,7 +29,7 @@ public class SQL_Controller {
         }
     }
 
-    public static void insertEntry() {
+    public static void insertTask() {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customers (first-name,second_name,email) values ( ?, ?, ?)");
             preparedStatement.setString(1,first_name);
@@ -40,14 +40,14 @@ public class SQL_Controller {
             System.out.println("There was an error in the SQL syntax");
         }
     }
-    public static void updateEntry() {
+    public static void updateTask() {
 
     }
-    public static void deleteEntry() {
+    public static void deleteTask() {
 
     }
 
-    public static Task[] selectEntry() {
+    public static Task[] selectTask() {
         try {
             resultSet = statement.executeQuery("SELECT * FROM tasks");
         } catch (SQLException sqlException) {
