@@ -1,5 +1,8 @@
-CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, task TEXT, due_date Date);
-
+CREATE TABLE IF NOT EXISTS tasks (
+                                     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                                     task TEXT,
+                                     due_date DATE
+);
 
 INSERT INTO tasks (task, due_date) VALUES
                                        ('Math Homework', '2023-10-01'),
