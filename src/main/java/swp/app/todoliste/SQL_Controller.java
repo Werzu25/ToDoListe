@@ -26,4 +26,14 @@ public class SQL_Controller {
             System.out.println("VendorError: " + e.getErrorCode());
         }
     }
+
+    public static void insertEntry() {
+
+    }
+    public static void updateEntry() {
+
+    }
+    public static void deleteEntry() {
+
+    }
 }
