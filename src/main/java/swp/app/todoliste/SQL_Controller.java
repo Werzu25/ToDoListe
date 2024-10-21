@@ -40,7 +40,16 @@ public class SQL_Controller {
             System.out.println("There was an error in the SQL syntax");
         }
     }
-    public static void updateTask() {
+    public static void updateTask(Task task) {
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks SET title = ?, changeDate = ? WHERE id = ?");
+            preparedStatement.setString(1,task.getTitle() );
+            preparedStatement.setDate(2, Date.valueOf(task.getChangeDate()));
+            preparedStatement.setInt(3,task.getId());
+            preparedStatement.executeUpdate();
+        }catch (SQLException sqlException) {
+            System.out.println("There was an error in the SQL syntax");
+        }
 
     }
     public static void deleteTask(Task task) {
