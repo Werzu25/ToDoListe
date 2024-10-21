@@ -47,8 +47,15 @@ public class SQL_Controller {
     public static void updateTask() {
 
     }
-    public static void deleteTask() {
+    public static void deleteTask(Task task) {
+        try {
 
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM tasks WHERE id = ?");
+            preparedStatement.setInt(1, task.getId());
+            preparedStatement.executeUpdate();
+        }catch (SQLException sqlException) {
+            System.out.println("There was an error in the SQL syntax");
+        }
     }
 
     public static Task[] selectTask() {
