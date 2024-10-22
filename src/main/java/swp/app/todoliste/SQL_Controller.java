@@ -8,10 +8,10 @@ public class SQL_Controller {
     public static Connection connection = null;
     private static Statement statement = null;
     private static ResultSet resultSet = null;
-    public static void initConnection(String url) {
+    public static void initConnection(String url, String user, String passwd) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(url);
+            connection = DriverManager.getConnection(url,user,passwd);
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -47,7 +47,7 @@ public class SQL_Controller {
     public static void updateTask(Task task) {
         try{
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks SET title = ?, changeDate = ? WHERE id = ?");
-            preparedStatement.setString(1,task.getTitle() );
+            preparedStatement.setString(1,task.getTask() );
             preparedStatement.setDate(2, Date.valueOf(task.getChangeDate()));
             preparedStatement.setInt(3,task.getId());
             preparedStatement.executeUpdate();

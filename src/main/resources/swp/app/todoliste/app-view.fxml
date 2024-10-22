@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
+
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="p_root" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="swp.app.todoliste.AppController">
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <items>
-
-      <VBox fx:id="vBox_left" prefHeight="200.0" prefWidth="100.0" />
-      <VBox prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <Button fx:id="b_edit" mnemonicParsing="false" text="Aufgabe bearbeiten" />
-            <Button fx:id="b_delete" mnemonicParsing="false" text="Aufgabe löschen" />
-            <Button fx:id="b_add" mnemonicParsing="false" text="Aufgabe hinzufügen" />
-         </children>
-      </VBox>
-   </items>
-</SplitPane>
-</Pane>
+<Pane fx:id="p_root" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="swp.app.todoliste.AppController" />

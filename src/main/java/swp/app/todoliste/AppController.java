@@ -17,22 +17,51 @@ import javafx.stage.Stage;
 public class AppController implements Initializable{
     String choosenAssignment;
     @FXML
-    Pane P_root;
+    Pane p_root;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         switchToAllAssignments();
-
+        SQL_Controller.initConnection("jdbc:mysql://localhost:3306/","user2","MySQLDB5");
     }
     public void addAssignment(){
-        P_root.getChildren().removeAll();
+        p_root.getChildren().remove(0);
+        VBox vbox = new VBox();
+        //bind VBox height und width to o_root
+        vbox.prefWidthProperty().bind(p_root.widthProperty());
+        vbox.prefHeightProperty().bind(p_root.heightProperty());
+        //add fields to insert a task
+        vbox.getChildren().add(new Label("name task: "));
+        TextField tf_name = new TextField("insert name");
+        vbox.getChildren().add(tf_name);
+        vbox.getChildren().add(new Label("up to:"));
+        DatePicker datePicker = new DatePicker();
+        vbox.getChildren().add(datePicker);
+        Button submit = new Button("Submit");
+        submit.setOnAction(e->{
+            //insert task to DB
+            Task newTask = new Task(tf_name.getText().toString(),datePicker.getValue());
+            SQL_Controller.insertTask(newTask);
+        });
+        vbox.getChildren().add(submit);
+        vbox.getChildren().add(new Label(" "));
+        Button back = new Button("back to overview");
+        back.setOnAction(e ->{
+            switchToAllAssignments();
+        });
+        vbox.getChildren().add(back);
 
+        p_root.getChildren().add(vbox);
     }
     public void switchToAllAssignments(){
-        P_root.getChildren().removeAll();
+        p_root.getChildren().removeAll();
         SplitPane splitPane = new SplitPane();
-        P_root.getChildren().add(splitPane);
+        //bind splitPane height und width to p_root
+        splitPane.prefWidthProperty().bind(p_root.widthProperty());
+        splitPane.prefHeightProperty().bind(p_root.heightProperty());
+        p_root.getChildren().add(splitPane);
         VBox assignmentBox = new VBox();
+        assignmentBox.setMinSize(p_root.getMaxWidth(),p_root.getMaxHeight());
         VBox buttonBox = new VBox();
         splitPane.getItems().addAll(assignmentBox,buttonBox);
         Button b_add = new Button("Aufgabe hinzufügen");
@@ -56,15 +85,8 @@ public class AppController implements Initializable{
             assignmentBox.getChildren().add(cBox);
         }
         //set button action
-        b_add.setOnAction(e -> {
-            try{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Aufgabe adden "+choosenAssignment);
-                alert.show();
-            } catch (Exception ex){
-                System.out.println(ex.getMessage());
-            }
-        });
+        b_add.setOnAction(e->{addAssignment();
+            System.out.println("clicked");});
         b_delete.setOnAction(e ->{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Aufgabe löschen "+choosenAssignment);
