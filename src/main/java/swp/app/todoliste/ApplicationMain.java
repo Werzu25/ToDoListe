@@ -16,7 +16,7 @@ public class ApplicationMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(ApplicationMain.class.getResource("app-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 300);
         stage.setTitle("ToDo-App");
-        stage.getIcons().add(new Image(ApplicationMain.class.getResourceAsStream("/icon.jpg")));
+        stage.getIcons().add(new Image(ApplicationMain.class.getResourceAsStream("/icon.png")));
         stage.setScene(scene);
         stage.show();
 

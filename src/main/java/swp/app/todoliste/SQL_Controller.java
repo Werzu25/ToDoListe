@@ -12,7 +12,7 @@ public class SQL_Controller {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url,user,passwd);
-            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            statement = connection.createStatement();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -32,13 +32,9 @@ public class SQL_Controller {
 
     public static void insertTask(Task task) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customers (id,task,due_date) values ( ?, ?, ?)");
-            preparedStatement.setInt(1,task.getId());
-            preparedStatement.setString(2,task.getTask());
-
-            LocalDate localDate = task.getChangeDate();
-            Date insetedDate = Date.valueOf(localDate);
-            preparedStatement.setDate(3,insetedDate);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks (task,due_date) values (?, ?)");
+            preparedStatement.setString(1,task.getTask());
+            preparedStatement.setDate(2,Date.valueOf(task.getChangeDate()));
             preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {
             System.out.println("There was an error in the SQL syntax");
@@ -46,7 +42,7 @@ public class SQL_Controller {
     }
     public static void updateTask(Task task) {
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks SET title = ?, changeDate = ? WHERE id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks SET task = ?, due_date = ? WHERE id = ?");
             preparedStatement.setString(1,task.getTask() );
             preparedStatement.setDate(2, Date.valueOf(task.getChangeDate()));
             preparedStatement.setInt(3,task.getId());
@@ -56,11 +52,11 @@ public class SQL_Controller {
         }
 
     }
-    public static void deleteTask(Task task) {
+    public static void deleteTask(int id) {
         try {
 
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM tasks WHERE id = ?");
-            preparedStatement.setInt(1, task.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         }catch (SQLException sqlException) {
             System.out.println("There was an error in the SQL syntax");
@@ -69,9 +65,32 @@ public class SQL_Controller {
 
     public static Task[] selectTask() {
         try {
+            resultSet = statement.executeQuery("SELECT count(*) FROM tasks");
+            resultSet.next();
+            Task[] resultTasks = new Task[resultSet.getInt(1)];
             resultSet = statement.executeQuery("SELECT * FROM tasks");
+            for (int i = 0; i < resultTasks.length; i++) {
+                resultSet.next();
+                resultTasks[i] = new Task(resultSet.getString(2),resultSet.getDate(3).toLocalDate());
+                resultTasks[i].setId(resultSet.getInt(1));
+            }
+            return resultTasks;
         } catch (SQLException sqlException) {
-
+            System.out.println("There was an error in the SQL syntax");
+        }
+        return null;
+    }
+    public static Task getOneTask(int id){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE id =?");
+            preparedStatement.setInt(1,id);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            Task resultTask = new Task(resultSet.getString(2),resultSet.getDate(3).toLocalDate());
+            resultTask.setId(resultSet.getInt(1));
+            return resultTask;
+        } catch (SQLException sqlException) {
+            System.out.println("There was an error in the SQL syntax");
         }
         return null;
     }

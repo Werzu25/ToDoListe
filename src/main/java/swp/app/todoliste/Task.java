@@ -2,6 +2,7 @@ package swp.app.todoliste;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     private int id;
@@ -35,5 +36,11 @@ public class Task {
 
     public void setChangeDate(LocalDate changeDate) {
         this.changeDate = changeDate;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return (this.id+" - "+this.task+" - due to "+this.changeDate.format(format));
     }
 }
