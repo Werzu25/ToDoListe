@@ -8,10 +8,12 @@ public class Task {
     private int id;
     private String task;
     private LocalDate changeDate;
+    private boolean done;
 
-    public Task(String task, LocalDate changeDate) {
+    public Task(String task, LocalDate changeDate,boolean done) {
         this.task = task;
         this.changeDate = changeDate;
+        this.done = done;
     }
 
     public int getId() {
@@ -37,6 +39,10 @@ public class Task {
     public void setChangeDate(LocalDate changeDate) {
         this.changeDate = changeDate;
     }
+
+    public boolean isDone() {return done;}
+
+    public void setDone(boolean done) {this.done = done;}
 
     @Override
     public String toString() {
